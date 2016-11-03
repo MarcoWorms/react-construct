@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Construct, { Sprite, bullet } from './react-construct'
+import Construct, { Sprite, bullet, boundToWindow } from './react-construct'
 
 class App extends Component {
   constructor() {
@@ -46,15 +46,20 @@ class App extends Component {
         <Sprite
           initial={{
             x: 100,
-            y: 100
+            y: 100,
+            width: 20,
+            height: 10
           }}
           behaviours={[
-            bullet({ speed: 200, angle: this.state.playerAngle }),
+            bullet({
+              speed: 200,
+              motionAngle: this.state.playerAngle,
+              setAngle: true
+            }),
+            boundToWindow()
           ]}
           paint={{
-            backgroundColor: 'red',
-            width: '10px',
-            height: '10px'
+            backgroundColor: 'red'
           }}
         />
       </Construct>
