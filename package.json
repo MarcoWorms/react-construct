@@ -1,5 +1,6 @@
 {
   "name": "react-construct",
+  "homepage": "http://worms.io/react-construct",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
