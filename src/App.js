@@ -49,8 +49,7 @@ class App extends Component {
             x: 100,
             y: 100,
             width: 200,
-            height: 30,
-            opacity: 0
+            height: 30
           }}
           behaviours={[
             bullet({

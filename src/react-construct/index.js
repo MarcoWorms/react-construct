@@ -20,8 +20,9 @@ export class GameObject extends Component {
       y: this.props.initial.y || 0,
       width: this.props.initial.width || 0,
       height: this.props.initial.height || 0,
-      opacity: this.props.initial.opacity || 0,
+      opacity: this.props.initial.opacity || 1,
       angle: 0,
+      anchor: this.props.initial.anchor || [0.5, 0.5],
       lastFrame: performance.now()
     }
   }
@@ -55,9 +56,10 @@ export class GameObject extends Component {
           left: 0,
           width: this.state.width + 'px',
           height: this.state.height + 'px',
-          transform: 'translate(' + (this.state.x - this.state.width/2) + 'px,'  +
-                                    (this.state.y - this.state.height/2) + 'px) ' +
-                     'rotate(' + this.state.angle + 'deg)',
+          transform: 'translate(' + (this.state.x - this.state.width*this.state.anchor[0]) + 'px,'  +
+                                    (this.state.y - this.state.height*this.state.anchor[1]) + 'px) ' +
+                     'rotate(' + this.state.angle + 'deg) ',
+          transformOrigin: this.state.anchor[0] + ' ' + this.state.anchor[1],
           opacity: this.state.opacity
         }}
       />
