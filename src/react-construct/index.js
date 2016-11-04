@@ -50,6 +50,9 @@ export class GameObject extends Component {
       <div
         style={{
           ...this.props.style,
+          position: 'absolute',
+          top: 0,
+          left: 0,
           width: this.state.width + 'px',
           height: this.state.height + 'px',
           transform: 'translate(' + (this.state.x - this.state.width/2) + 'px,'  +
