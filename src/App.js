@@ -30,16 +30,17 @@ class App extends Component {
           }}
           behaviours={[
             bullet({
-              speed: 500,
+              speed: 200,
               motionAngle: this.state.playerAngle,
               setAngle: false
             }),
             boundToWindow(),
             fade({ delay: 0, enter:1, stay: 0, leave: 1, loop: true}),
-            rotate({speed: 360})
+            rotate({ speed: 90 })
           ]}
           style={{
-            backgroundColor: 'blue'
+            backgroundColor: 'blue',
+            borderRadius: '8px'
           }}
         />
       </Construct>
