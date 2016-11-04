@@ -3,7 +3,9 @@ import React, { Component } from 'react'
 export default class Construct extends Component {
   render() {
     return (
-      this.props.children
+      <div id="react-construct">
+        {this.props.children}
+      </div>
     )
   }
 }
@@ -18,6 +20,7 @@ export class GameObject extends Component {
       y: this.props.initial.y || 0,
       width: this.props.initial.width || 0,
       height: this.props.initial.height || 0,
+      opacity: this.props.initial.opacity || 0,
       angle: 0,
       lastFrame: performance.now()
     }
@@ -42,19 +45,17 @@ export class GameObject extends Component {
   componentDidMount() {
     this.handleUpdate()
   }
-}
-
-export class Sprite extends GameObject {
   render() {
     return (
       <div
         style={{
-          ...this.props.paint,
+          ...this.props.style,
           width: this.state.width + 'px',
           height: this.state.height + 'px',
           transform: 'translate(' + (this.state.x - this.state.width/2) + 'px,'  +
                                     (this.state.y - this.state.height/2) + 'px) ' +
-                     'rotate(' + this.state.angle + 'deg)'
+                     'rotate(' + this.state.angle + 'deg)',
+          opacity: this.state.opacity
         }}
       />
     )
@@ -69,6 +70,16 @@ export function bullet ({ speed, motionAngle, setAngle }) {
       const angle = setAngle ? motionAngle : state.angle
 
       const nextState = { ...state, x, y, angle }
+      return nextState
+    }
+  }
+}
+
+export function rotate ({ speed }) {
+  return {
+    update(state, dt) {
+      const angle = state.angle + (speed * dt)
+      const nextState = { ...state, angle }
       return nextState
     }
   }
@@ -95,6 +106,54 @@ export function boundToWindow () {
       return nextState
     }
   }
+}
+
+export function fade ({ delay, enter, stay, leave, loop}) {
+  delay = delay || 0
+  enter = enter || 0
+  stay = stay || 0
+  leave = leave || 0
+  return {
+    update(state, dt) {
+
+      const timeSpent = (state.timeSpent || 0) + dt
+
+      const fadeState =
+        (delay ? (timeSpent <= delay) : false) ? 'delay' :
+        (enter ? (timeSpent <= delay + enter) : false) ? 'enter' :
+        (stay ? (timeSpent <= delay + enter + stay) : false) ? 'stay' :
+        (leave ? (timeSpent <= delay + enter + stay + leave) : false) ? 'leave' : 'end'
+
+      const opacity =
+        (fadeState === 'delay') ? 0 :
+        (fadeState === 'enter') ?
+          lerp(
+            0,
+            1,
+            (timeSpent - delay) / enter
+          ) :
+        (fadeState === 'stay') ? 1 :
+        (fadeState === 'leave') ?
+          lerp(
+            1,
+            0,
+            (timeSpent - (delay + enter + stay)) / leave
+          ) :
+        (fadeState === 'end') ? state.opacity : 0
+
+      const nextState = {
+        ...state,
+        timeSpent: (fadeState === 'end' && loop) ? 0 : timeSpent,
+        opacity
+      }
+
+      return nextState
+    }
+  }
+}
+
+function lerp (start, end, proporcao) {
+  return start + (proporcao * (end - start))
 }
 
 function sin (angle) {

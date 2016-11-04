@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Construct, { Sprite, bullet, boundToWindow } from './react-construct'
+import Construct, { GameObject, bullet, boundToWindow, fade, rotate } from './react-construct'
 
 class App extends Component {
   constructor() {
@@ -43,23 +43,27 @@ class App extends Component {
   render() {
     return (
       <Construct>
-        <Sprite
+        <p>try WASD</p>
+        <GameObject
           initial={{
             x: 100,
             y: 100,
-            width: 20,
-            height: 10
+            width: 200,
+            height: 30,
+            opacity: 0
           }}
           behaviours={[
             bullet({
-              speed: 200,
+              speed: 500,
               motionAngle: this.state.playerAngle,
-              setAngle: true
+              setAngle: false
             }),
-            boundToWindow()
+            boundToWindow(),
+            fade({ delay: 0, enter:1, stay: 0, leave: 1, loop: true}),
+            rotate({speed: 360})
           ]}
-          paint={{
-            backgroundColor: 'red'
+          style={{
+            backgroundColor: 'blue'
           }}
         />
       </Construct>
