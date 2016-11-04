@@ -1,6 +1,6 @@
 #http://worms.io/react-construct/
 
-## `app.js`
+### `app.js`
 ```javascript
 import React, { Component } from 'react';
 import './App.css';
@@ -47,7 +47,7 @@ class App extends Component {
 export default App;
 ```
 
-## `index.js`
+### `index.js`
 ```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -58,4 +58,11 @@ ReactDOM.render(
   <App />,
   document.getElementById('root')
 );
+```
+
+### `index.html`
+```javascript
+<body>
+  <div id="root"></div>
+</body>
 ```
