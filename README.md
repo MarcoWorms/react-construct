@@ -1,3 +1,7 @@
+### This lib is going to be splited among other react libs.
+### The first one aims to handle global events https://github.com/pagarme/react-event-components
+### the second one will probably cover behaviours or gameObjects. I want react-construct to be the integration of all those libs, it will aim to be a sane way to develop games and other interactive content using react building blocks.
+
 #http://worms.io/react-construct/
 
 ### `app.js`
