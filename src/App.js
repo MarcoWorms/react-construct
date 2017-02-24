@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-
 import Construct, {
-  GameObject, KeyDown,
-  bullet, boundToWindow, fade, rotate,
+  GameObject,
+  KeyDown,
+  bullet,
+  boundToWindow,
+  fade,
+  rotate,
 } from './react-construct'
 
 class App extends Component {
@@ -26,22 +29,22 @@ class App extends Component {
             x: 100,
             y: 100,
             width: 200,
-            height: 30
+            height: 30,
+          }}
+          style={{
+            backgroundColor: 'blue',
+            borderRadius: '8px',
           }}
           behaviours={[
             bullet({
               speed: 200,
               motionAngle: this.state.playerAngle,
-              setAngle: false
+              setAngle: false,
             }),
             boundToWindow(),
-            fade({ delay: 0, enter:1, stay: 0, leave: 1, loop: true}),
+            fade({ delay: 0, enter:1, stay: 0, leave: 1, loop: true }),
             rotate({ speed: 90 })
           ]}
-          style={{
-            backgroundColor: 'blue',
-            borderRadius: '8px'
-          }}
         />
       </Construct>
     );
